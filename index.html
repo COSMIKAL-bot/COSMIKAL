@@ -1,48 +1,15 @@
-// COSMIKAL - Calculateur de Résonance Cosmique et Universelle
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COSMIKAL - Site Restauré</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Bienvenue sur COSMIKAL</h1>
+    <p>Exploration des équations, résonance cosmique et découvertes scientifiques.</p>
 
-// Constantes fondamentales
-const phi = (1 + Math.sqrt(5)) / 2; // Nombre d'or
-const pi = Math.PI; // Nombre pi
-const hbar = 1.054571817e-34; // Constante de Planck réduite
-
-// Fréquences fondamentales
-const freqs = {
-    schumann: 7.83, // Résonance de Schumann (Hz)
-    music: [432, 528, 639, 741, 852], // Fréquences harmoniques musicales (Hz)
-    colors: [400, 470, 530, 590, 620, 660, 700] // Fréquences des couleurs du spectre (THz)
-};
-
-// Fonction de calcul de résonance universelle
-tunction resonanceEquation(length, frequency, alpha) {
-    return length * frequency * phi * pi * alpha;
-}
-
-// Calcul des fréquences additives
-function coupledFrequencies(freqs) {
-    return freqs.reduce((sum, f) => sum + f, 0);
-}
-
-// Énergie vibratoire
-function energyVibratory(frequency) {
-    return hbar * 2 * pi * frequency;
-}
-
-// Interface utilisateur interactive
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('calculateButton').addEventListener('click', function () {
-        let length = parseFloat(document.getElementById('lengthInput').value);
-        let frequency = parseFloat(document.getElementById('frequencyInput').value);
-        let alpha = parseFloat(document.getElementById('alphaInput').value);
-        
-        let resonance = resonanceEquation(length, frequency, alpha);
-        let coupled = coupledFrequencies(freqs.music);
-        let energy = energyVibratory(frequency);
-        
-        document.getElementById('result').innerHTML = `
-            <strong>Résultats :</strong><br>
-            Résonance Cosmique: ${resonance.toFixed(5)}<br>
-            Somme des fréquences couplées: ${coupled} Hz<br>
-            Énergie vibratoire: ${energy.toExponential(5)} J
-        `;
-    });
-});
+    <script src="script.js"></script>
+</body>
+</html>
