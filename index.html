@@ -1,84 +1,48 @@
-// Module de Cryptographie Avancée pour COSMIKAL (Méthode Carré Sator)
+// COSMIKAL - Calculateur de Résonance Cosmique et Universelle
 
-// Import des bibliothèques nécessaires (si Node.js)
-// const crypto = require('crypto');
+// Constantes fondamentales
+const phi = (1 + Math.sqrt(5)) / 2; // Nombre d'or
+const pi = Math.PI; // Nombre pi
+const hbar = 1.054571817e-34; // Constante de Planck réduite
 
-class CryptoModule {
-    constructor() {
-        this.textEncoder = new TextEncoder();
-        this.textDecoder = new TextDecoder();
-    }
+// Fréquences fondamentales
+const freqs = {
+    schumann: 7.83, // Résonance de Schumann (Hz)
+    music: [432, 528, 639, 741, 852], // Fréquences harmoniques musicales (Hz)
+    colors: [400, 470, 530, 590, 620, 660, 700] // Fréquences des couleurs du spectre (THz)
+};
 
-    async generateKey() {
-        return await window.crypto.subtle.generateKey(
-            {
-                name: "AES-GCM",
-                length: 256,
-            },
-            true,
-            ["encrypt", "decrypt"]
-        );
-    }
-
-    async encrypt(text, key) {
-        const iv = window.crypto.getRandomValues(new Uint8Array(12));
-        const encodedText = this.textEncoder.encode(text);
-        const encrypted = await window.crypto.subtle.encrypt(
-            { name: "AES-GCM", iv: iv },
-            key,
-            encodedText
-        );
-        return { cipher: encrypted, iv: iv };
-    }
-
-    async decrypt(encryptedData, key) {
-        const decrypted = await window.crypto.subtle.decrypt(
-            { name: "AES-GCM", iv: encryptedData.iv },
-            key,
-            encryptedData.cipher
-        );
-        return this.textDecoder.decode(decrypted);
-    }
-
-    encodeBase64(text) {
-        return btoa(text);
-    }
-
-    decodeBase64(base64) {
-        return atob(base64);
-    }
-
-    encodeHex(text) {
-        return [...this.textEncoder.encode(text)]
-            .map(byte => byte.toString(16).padStart(2, '0'))
-            .join('');
-    }
-
-    decodeHex(hex) {
-        const bytes = new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
-        return this.textDecoder.decode(bytes);
-    }
+// Fonction de calcul de résonance universelle
+tunction resonanceEquation(length, frequency, alpha) {
+    return length * frequency * phi * pi * alpha;
 }
 
-// Organisation selon la méthode Carré Sator
-const SATOR = ["S", "A", "T", "O", "R"];
-const AREPO = ["A", "R", "E", "P", "O"];
-const TENET = ["T", "E", "N", "E", "T"];
-const OPERA = ["O", "P", "E", "R", "A"];
-const ROTAS = ["R", "O", "T", "A", "S"];
+// Calcul des fréquences additives
+function coupledFrequencies(freqs) {
+    return freqs.reduce((sum, f) => sum + f, 0);
+}
 
-const SATOR_SQUARE = [SATOR, AREPO, TENET, OPERA, ROTAS];
-console.table(SATOR_SQUARE);
+// Énergie vibratoire
+function energyVibratory(frequency) {
+    return hbar * 2 * pi * frequency;
+}
 
-// Exemple d'utilisation
-(async () => {
-    const cryptoModule = new CryptoModule();
-    const key = await cryptoModule.generateKey();
-    const message = "Message ultra sécurisé";
-    
-    const encryptedData = await cryptoModule.encrypt(message, key);
-    console.log("Données chiffrées :", encryptedData);
-    
-    const decryptedMessage = await cryptoModule.decrypt(encryptedData, key);
-    console.log("Message déchiffré :", decryptedMessage);
-})();
+// Interface utilisateur interactive
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('calculateButton').addEventListener('click', function () {
+        let length = parseFloat(document.getElementById('lengthInput').value);
+        let frequency = parseFloat(document.getElementById('frequencyInput').value);
+        let alpha = parseFloat(document.getElementById('alphaInput').value);
+        
+        let resonance = resonanceEquation(length, frequency, alpha);
+        let coupled = coupledFrequencies(freqs.music);
+        let energy = energyVibratory(frequency);
+        
+        document.getElementById('result').innerHTML = `
+            <strong>Résultats :</strong><br>
+            Résonance Cosmique: ${resonance.toFixed(5)}<br>
+            Somme des fréquences couplées: ${coupled} Hz<br>
+            Énergie vibratoire: ${energy.toExponential(5)} J
+        `;
+    });
+});
