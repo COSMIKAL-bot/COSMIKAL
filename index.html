@@ -24,6 +24,43 @@
         <canvas id="waveCanvas"></canvas>
     </section>
     
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            animateWave();
+        });
+
+        function convertCoudée() {
+            let input = document.getElementById("inputValue").value;
+            if (input.trim() === "" || isNaN(input)) {
+                document.getElementById("resultConversion").innerText = "❌ Veuillez entrer un nombre valide.";
+                return;
+            }
+            let result = parseFloat(input) / 0.5236;
+            document.getElementById("resultConversion").innerText = `✅ Valeur en coudées royales : ${result.toFixed(5)}`;
+        }
+
+        function animateWave() {
+            let canvas = document.getElementById("waveCanvas");
+            let ctx = canvas.getContext("2d");
+            canvas.width = 500;
+            canvas.height = 200;
+            let t = 0;
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height / 2);
+                for (let x = 0; x < canvas.width; x++) {
+                    let y = canvas.height / 2 + 50 * Math.sin((x / canvas.width) * 2 * Math.PI * 5 + t);
+                    ctx.lineTo(x, y);
+                }
+                ctx.strokeStyle = "blue";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                t += 0.1;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+    </script>
 </body>
 </html>
