@@ -1,4 +1,4 @@
-// Module de Cryptographie Avancée pour COSMIKAL
+// Module de Cryptographie Avancée pour COSMIKAL (Méthode Carré Sator)
 
 // Import des bibliothèques nécessaires (si Node.js)
 // const crypto = require('crypto');
@@ -59,6 +59,16 @@ class CryptoModule {
         return this.textDecoder.decode(bytes);
     }
 }
+
+// Organisation selon la méthode Carré Sator
+const SATOR = ["S", "A", "T", "O", "R"];
+const AREPO = ["A", "R", "E", "P", "O"];
+const TENET = ["T", "E", "N", "E", "T"];
+const OPERA = ["O", "P", "E", "R", "A"];
+const ROTAS = ["R", "O", "T", "A", "S"];
+
+const SATOR_SQUARE = [SATOR, AREPO, TENET, OPERA, ROTAS];
+console.table(SATOR_SQUARE);
 
 // Exemple d'utilisation
 (async () => {
