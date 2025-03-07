@@ -1,83 +1,74 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COSMIKAL - Résonance Cosmique</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #800000;
-            padding: 20px;
-            font-size: 24px;
-        }
-        .content {
-            padding: 20px;
-        }
-        button {
-            background-color: #ff0000;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-        }
-        button:hover {
-            background-color: #cc0000;
-        }
-        input {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        COSMIKAL - Résonance Cosmique
-    </header>
-    <div class="content">
-        <h2>Analyse de Résonance</h2>
-        <p>Intégration des équations et principes de résonance cosmique.</p>
-        <button onclick="analyzeEquation()">Lancer l'Analyse</button>
-        <p id="result"></p>
-        
-        <h2>Calculatrice Scientifique</h2>
-        <input type="text" id="calcInput" placeholder="Entrez votre calcul">
-        <button onclick="calculate()">Calculer</button>
-        <p id="calcResult"></p>
-    </div>
+// Module de Cryptographie Avancée pour COSMIKAL
 
-    <script>
-        function analyzeEquation() {
-            document.getElementById("result").innerText = "Analyse en cours... (IA et calculs à intégrer)";
-        }
+// Import des bibliothèques nécessaires (si Node.js)
+// const crypto = require('crypto');
 
-        function calculate() {
-            try {
-                let input = document.getElementById("calcInput").value;
-                let result = eval(input);
-                document.getElementById("calcResult").innerText = "Résultat : " + result;
-            } catch (e) {
-                document.getElementById("calcResult").innerText = "Erreur dans l'expression";
-            }
-        }
+class CryptoModule {
+    constructor() {
+        this.textEncoder = new TextEncoder();
+        this.textDecoder = new TextDecoder();
+    }
 
-        // Désactiver le tracking utilisateur
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition = function(){};
-        }
-        console.log = function(){};
-        console.warn = function(){};
-        console.error = function(){};
-    </script>
-</body>
-</html>
+    async generateKey() {
+        return await window.crypto.subtle.generateKey(
+            {
+                name: "AES-GCM",
+                length: 256,
+            },
+            true,
+            ["encrypt", "decrypt"]
+        );
+    }
+
+    async encrypt(text, key) {
+        const iv = window.crypto.getRandomValues(new Uint8Array(12));
+        const encodedText = this.textEncoder.encode(text);
+        const encrypted = await window.crypto.subtle.encrypt(
+            { name: "AES-GCM", iv: iv },
+            key,
+            encodedText
+        );
+        return { cipher: encrypted, iv: iv };
+    }
+
+    async decrypt(encryptedData, key) {
+        const decrypted = await window.crypto.subtle.decrypt(
+            { name: "AES-GCM", iv: encryptedData.iv },
+            key,
+            encryptedData.cipher
+        );
+        return this.textDecoder.decode(decrypted);
+    }
+
+    encodeBase64(text) {
+        return btoa(text);
+    }
+
+    decodeBase64(base64) {
+        return atob(base64);
+    }
+
+    encodeHex(text) {
+        return [...this.textEncoder.encode(text)]
+            .map(byte => byte.toString(16).padStart(2, '0'))
+            .join('');
+    }
+
+    decodeHex(hex) {
+        const bytes = new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+        return this.textDecoder.decode(bytes);
+    }
+}
+
+// Exemple d'utilisation
+(async () => {
+    const cryptoModule = new CryptoModule();
+    const key = await cryptoModule.generateKey();
+    const message = "Message ultra sécurisé";
+    
+    const encryptedData = await cryptoModule.encrypt(message, key);
+    console.log("Données chiffrées :", encryptedData);
+    
+    const decryptedMessage = await cryptoModule.decrypt(encryptedData, key);
+    console.log("Message déchiffré :", decryptedMessage);
+})();
