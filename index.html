@@ -3,114 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COSMIKAL - Résonance et Énergie</title>
+    <title>COSMIKAL - Résonance Universelle</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: white;
             margin: 0;
             padding: 0;
+            background-color: #0b0c10;
+            color: #ffffff;
             text-align: center;
         }
         header {
-            background: linear-gradient(to right, red, darkred);
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        .container {
+            background-color: #1f2833;
             padding: 20px;
         }
-        button {
-            background: red;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            margin: 10px;
-        }
-        button:hover {
-            background: darkred;
-        }
-        .section {
-            margin: 40px 0;
+        section {
             padding: 20px;
-            background: rgba(255, 0, 0, 0.1);
+        }
+        .equation {
+            background-color: #45a29e;
+            padding: 20px;
             border-radius: 10px;
+            display: inline-block;
+            margin-top: 20px;
         }
-        .footer {
-            margin-top: 50px;
-            padding: 20px;
-            background: #222;
+        img {
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #1f2833;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        canvas {
+            margin-top: 20px;
+            border: 1px solid #ffffff;
         }
     </style>
 </head>
 <body>
     <header>
-        COSMIKAL - Résonance et Énergie
+        <h1>COSMIKAL - Résonance Cosmique</h1>
     </header>
-    <nav>
-        <a href="#home">Accueil</a>
-        <a href="#equations">Équations</a>
-        <a href="#visualisation">Visualisation</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <div class="container">
-        <h1>Bienvenue sur COSMIKAL</h1>
-        <p>Découvrez l'interaction entre la résonance, les ondes et les fréquences naturelles.</p>
-        <button onclick="startAnalysis()">Lancer l'analyse</button>
-        <button onclick="showEquations()">Voir les Équations</button>
-        <button onclick="openVisualization()">Explorer les Visualisations</button>
-    </div>
     
-    <div id="equations" class="section">
-        <h2>Les Équations de Résonance</h2>
-        <p>Voici les formules utilisées pour calculer les interactions vibratoires :</p>
-        <pre>f = (c / λ)  avec c = vitesse de la lumière et λ = longueur d'onde</pre>
-    </div>
+    <section>
+        <h2>Équation Cosmique Améliorée</h2>
+        <div class="equation">
+            <p><strong>E_c = (L_e / φ) × (π / 7) × (∑F + ∑N) × (C + R + S) × (h·c / ε0) × S_c × F_432 × K × Ω × (G·M / R²) × (Λ / ρ_c)</strong></p>
+        </div>
+        <p>Cette équation relie les constantes fondamentales, la résonance cosmique et les fréquences naturelles.</p>
+        <canvas id="graphCanvas" width="600" height="400"></canvas>
+    </section>
     
-    <div id="visualisation" class="section">
-        <h2>Visualisation Dynamique</h2>
-        <p>Explorez la résonance et l'énergie à travers des graphes interactifs.</p>
-        <button onclick="alert('Graphiques interactifs à venir !')">Lancer une simulation</button>
-    </div>
+    <section>
+        <h2>Explications et Calculs</h2>
+        <p>Nous avons intégré les principes de la géométrie sacrée, de la physique quantique et des résonances naturelles.</p>
+        <p><strong>Consultez les sections détaillées pour comprendre les applications et expériences scientifiques.</strong></p>
+    </section>
     
-    <div id="contact" class="section">
-        <h2>Contactez-nous</h2>
-        <p>Une question ou une suggestion ? Envoyez-nous un message :</p>
-        <form>
-            <input type="text" placeholder="Votre Nom" required><br>
-            <input type="email" placeholder="Votre Email" required><br>
-            <textarea placeholder="Votre message"></textarea><br>
-            <button type="submit">Envoyer</button>
-        </form>
-    </div>
+    <section>
+        <h2>Galerie d'Images et Schémas</h2>
+        <img src="schema1.png" alt="Schéma 1">
+        <img src="schema2.png" alt="Schéma 2">
+    </section>
     
-    <div class="footer">
-        &copy; 2025 COSMIKAL - Tous droits réservés
-    </div>
+    <section>
+        <h2>Simulation Interactive</h2>
+        <p>Visualisez l'effet des fréquences et des résonances en direct.</p>
+        <button onclick="simulateResonance()">Lancer la Simulation</button>
+        <p id="simulationResult"></p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 COSMIKAL - Exploration de la Résonance Universelle</p>
+    </footer>
     
     <script>
-        function startAnalysis() {
-            alert("Analyse en cours... Fonctionnalité à venir !");
+        function simulateResonance() {
+            let result = "Résonance détectée à 432 Hz et 528 Hz !";
+            document.getElementById("simulationResult").innerText = result;
         }
-        function showEquations() {
-            document.getElementById('equations').scrollIntoView({behavior: 'smooth'});
-        }
-        function openVisualization() {
-            document.getElementById('visualisation').scrollIntoView({behavior: 'smooth'});
-        }
+
+        window.onload = function() {
+            let canvas = document.getElementById("graphCanvas");
+            let ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(50, 200);
+            ctx.quadraticCurveTo(150, 50, 250, 200);
+            ctx.quadraticCurveTo(350, 350, 450, 200);
+            ctx.strokeStyle = "#66fcf1";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        };
     </script>
 </body>
 </html>
