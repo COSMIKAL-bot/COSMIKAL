@@ -1,62 +1,48 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COSMIKAL - IA et Couplage Universel</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .input-box {
-            width: 80%;
-            padding: 10px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-        }
-        .btn {
-            background-color: red;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-        }
-        .response {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>COSMIKAL - IA de Résonance Cosmique</h1>
-        <p>Interagissez avec l'IA privée et explorez le couplage universel et cosmique.</p>
-        <input type="text" id="userInput" class="input-box" placeholder="Posez votre question ici...">
-        <button class="btn" onclick="askAI()">Envoyer</button>
-        <div class="response" id="response"></div>
-    </div>
+import os
+import time
+import json
+import numpy as np
+from flask import Flask, request, jsonify
+
+# Initialisation de l'IA basée sur la résonance cosmique
+class CosmikalAI:
+    def __init__(self):
+        self.memory = []  # Stocker l'historique des interactions
     
-    <script>
-        function askAI() {
-            let input = document.getElementById("userInput").value;
-            fetch("https://api.cosmikal.com/ask", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ question: input })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("response").innerHTML = "Réponse : " + data.answer;
-            })
-            .catch(error => console.error("Erreur:", error));
-        }
-    </script>
-</body>
-</html>
+    def analyze_equation(self, equation):
+        """ Analyse l'équation selon la logique cosmique et universelle """
+        try:
+            result = eval(equation)
+            self.memory.append((equation, result))
+            return result
+        except Exception as e:
+            return f"Erreur: {str(e)}"
+    
+    def universal_resonance(self, input_value):
+        """ Calcule une résonance énergétique à partir d'une valeur """
+        phi = (1 + np.sqrt(5)) / 2  # Nombre d'or
+        resonance = input_value * phi * np.pi  # Formule de couplage universel
+        return resonance
+
+# Création de l'IA
+ai = CosmikalAI()
+
+# Création de l'API Flask pour interagir avec l'IA
+app = Flask(__name__)
+
+@app.route('/analyze', methods=['POST'])
+def analyze():
+    data = request.json
+    equation = data.get("equation", "")
+    result = ai.analyze_equation(equation)
+    return jsonify({"result": result})
+
+@app.route('/resonance', methods=['POST'])
+def resonance():
+    data = request.json
+    input_value = float(data.get("value", 1))
+    resonance = ai.universal_resonance(input_value)
+    return jsonify({"resonance": resonance})
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
