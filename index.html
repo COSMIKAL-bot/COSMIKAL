@@ -3,102 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COSMIKAL - Résonance Universelle</title>
+    <title>COSMIKAL - IA et Couplage Universel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #0b0c10;
-            color: #ffffff;
+            background-color: #000;
+            color: #fff;
             text-align: center;
         }
-        header {
-            background-color: #1f2833;
-            padding: 20px;
+        .container {
+            margin-top: 50px;
         }
-        section {
-            padding: 20px;
-        }
-        .equation {
-            background-color: #45a29e;
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: 20px;
-        }
-        img {
+        .input-box {
             width: 80%;
-            max-width: 600px;
-            margin-top: 20px;
-        }
-        footer {
-            background-color: #1f2833;
             padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
         }
-        canvas {
+        .btn {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .response {
             margin-top: 20px;
-            border: 1px solid #ffffff;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>COSMIKAL - Résonance Cosmique</h1>
-    </header>
-    
-    <section>
-        <h2>Équation Cosmique Améliorée</h2>
-        <div class="equation">
-            <p><strong>E_c = (L_e / φ) × (π / 7) × (∑F + ∑N) × (C + R + S) × (h·c / ε0) × S_c × F_432 × K × Ω × (G·M / R²) × (Λ / ρ_c)</strong></p>
-        </div>
-        <p>Cette équation relie les constantes fondamentales, la résonance cosmique et les fréquences naturelles.</p>
-        <canvas id="graphCanvas" width="600" height="400"></canvas>
-    </section>
-    
-    <section>
-        <h2>Explications et Calculs</h2>
-        <p>Nous avons intégré les principes de la géométrie sacrée, de la physique quantique et des résonances naturelles.</p>
-        <p><strong>Consultez les sections détaillées pour comprendre les applications et expériences scientifiques.</strong></p>
-    </section>
-    
-    <section>
-        <h2>Galerie d'Images et Schémas</h2>
-        <img src="schema1.png" alt="Schéma 1">
-        <img src="schema2.png" alt="Schéma 2">
-    </section>
-    
-    <section>
-        <h2>Simulation Interactive</h2>
-        <p>Visualisez l'effet des fréquences et des résonances en direct.</p>
-        <button onclick="simulateResonance()">Lancer la Simulation</button>
-        <p id="simulationResult"></p>
-    </section>
-    
-    <footer>
-        <p>&copy; 2025 COSMIKAL - Exploration de la Résonance Universelle</p>
-    </footer>
+    <div class="container">
+        <h1>COSMIKAL - IA de Résonance Cosmique</h1>
+        <p>Interagissez avec l'IA privée et explorez le couplage universel et cosmique.</p>
+        <input type="text" id="userInput" class="input-box" placeholder="Posez votre question ici...">
+        <button class="btn" onclick="askAI()">Envoyer</button>
+        <div class="response" id="response"></div>
+    </div>
     
     <script>
-        function simulateResonance() {
-            let result = "Résonance détectée à 432 Hz et 528 Hz !";
-            document.getElementById("simulationResult").innerText = result;
+        function askAI() {
+            let input = document.getElementById("userInput").value;
+            fetch("https://api.cosmikal.com/ask", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question: input })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerHTML = "Réponse : " + data.answer;
+            })
+            .catch(error => console.error("Erreur:", error));
         }
-
-        window.onload = function() {
-            let canvas = document.getElementById("graphCanvas");
-            let ctx = canvas.getContext("2d");
-            ctx.beginPath();
-            ctx.moveTo(50, 200);
-            ctx.quadraticCurveTo(150, 50, 250, 200);
-            ctx.quadraticCurveTo(350, 350, 450, 200);
-            ctx.strokeStyle = "#66fcf1";
-            ctx.lineWidth = 2;
-            ctx.stroke();
-        };
     </script>
 </body>
 </html>
